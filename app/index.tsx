@@ -1,7 +1,7 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import {Home} from "./pages/home";
-import { COLOR } from "./utils";
+import { StatusBar } from "expo-status-bar";
+import {Home} from "../pages/home";
+import { COLOR } from "../utils";
 
 export default function App() {
   return (
