@@ -30,6 +30,7 @@ type ActionMap<M extends obj> = {
 export enum Types {
   update = "UPDATE",
   remove = "REMOVE",
+  cleanCart = "CLEAN_CART",
 }
 
 type CartPayload = {
@@ -45,6 +46,7 @@ type CartPayload = {
     quantity: number;
     image: string;
   };
+  [Types.cleanCart]: null;
 };
 
 type a = keyof ActionMap<CartPayload>;
@@ -71,6 +73,10 @@ const updateCartReducer = (state: CartType[], action: CartActions) => {
   }
   if (type === "REMOVE") {
     return [...state.filter((a) => a.dish !== payload.dish)];
+  }
+  
+  if (type === Types.cleanCart) {
+    return []
   }
   return [...state];
 };

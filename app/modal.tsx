@@ -28,81 +28,84 @@ export default function Modal() {
   ];
 
   return (
-    <ScrollView
+    <View
       style={{
         ...GLOBAL_STYLE.container,
         backgroundColor: COLOR.secondry,
-        // paddingBottom: 50,
+        flex: 1,
+        position: "relative",
       }}
     >
-      <View style={styles.imgContainer}>
-        <Image
-          //@ts-expect-error
-          source={imgAsset[image]}
-          contentFit="cover"
-          style={{ width: 250, height: 250, borderRadius: 200 }}
-        />
-      </View>
-      <View style={[styles.foodDetail]}>
-        <Text style={GLOBAL_STYLE.h1}>{dish}</Text>
-        <Text style={GLOBAL_STYLE.mv5}>240g</Text>
-        <View style={GLOBAL_STYLE.flexRow}>
-          {data.map((item, index) => (
-            <View
-              key={`${item.name}+ ${index}`}
-              style={{
-                ...GLOBAL_STYLE.flexRow,
-                backgroundColor: COLOR.lightBg,
-                ...GLOBAL_STYLE.alignCenter,
-                ...GLOBAL_STYLE.p5,
-                marginRight: 10,
-                borderRadius: 5,
-                ...GLOBAL_STYLE.mv5,
-              }}
-            >
-              <MaterialIcons name={item.icon} size={22} color={item.color} />
-              <Text>{item.name}</Text>
-            </View>
-          ))}
+      <ScrollView>
+        <View style={styles.imgContainer}>
+          <Image
+            //@ts-expect-error
+            source={imgAsset[image]}
+            contentFit="cover"
+            style={{ width: 250, height: 250, borderRadius: 200 }}
+          />
         </View>
-        <View style={GLOBAL_STYLE.pv10}>
-          <Text style={styles.subHeading}>Nutritional Value per 100g</Text>
-          <View
-            style={[
-              GLOBAL_STYLE.flexRow,
-              GLOBAL_STYLE.justifyBetween,
-              GLOBAL_STYLE.alignCenter,
-              GLOBAL_STYLE.pv5,
-            ]}
-          >
-            <View style={GLOBAL_STYLE.alignCenter}>
-              <Text style={GLOBAL_STYLE.bold}>198</Text>
-              <Text style={{ color: COLOR.grey }}>kcal</Text>
-            </View>
-            <View style={GLOBAL_STYLE.alignCenter}>
-              <Text style={GLOBAL_STYLE.bold}>13.1</Text>
-              <Text style={{ color: COLOR.grey }}>protein</Text>
-            </View>
-            <View style={GLOBAL_STYLE.alignCenter}>
-              <Text style={GLOBAL_STYLE.bold}>13.4</Text>
-              <Text style={{ color: COLOR.grey }}>fat</Text>
-            </View>
-            <View style={GLOBAL_STYLE.alignCenter}>
-              <Text style={GLOBAL_STYLE.bold}>5.8</Text>
-              <Text style={{ color: COLOR.grey }}>carbs</Text>
-            </View>
+        <View style={[styles.foodDetail]}>
+          <Text style={GLOBAL_STYLE.h1}>{dish}</Text>
+          <Text style={GLOBAL_STYLE.mv5}>240g</Text>
+          <View style={GLOBAL_STYLE.flexRow}>
+            {data.map((item, index) => (
+              <View
+                key={`${item.name}+ ${index}`}
+                style={{
+                  ...GLOBAL_STYLE.flexRow,
+                  backgroundColor: COLOR.lightBg,
+                  ...GLOBAL_STYLE.alignCenter,
+                  ...GLOBAL_STYLE.p5,
+                  marginRight: 10,
+                  borderRadius: 5,
+                  ...GLOBAL_STYLE.mv5,
+                }}
+              >
+                <MaterialIcons name={item.icon} size={22} color={item.color} />
+                <Text>{item.name}</Text>
+              </View>
+            ))}
           </View>
-          <Text style={[GLOBAL_STYLE.bold, GLOBAL_STYLE.pv10]}>
-            Ingredients
-          </Text>
-          <Text style={{ color: COLOR.grey }}>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi
-            fugit ipsum aut dolorum incidunt sequi dignissimos dolorem!
-            Asperiores, delectus possimus! Ratione sit maxime voluptatum?
-            Distinctio nihil ducimus tempora harum cum.
-          </Text>
+          <View style={GLOBAL_STYLE.pv10}>
+            <Text style={styles.subHeading}>Nutritional Value per 100g</Text>
+            <View
+              style={[
+                GLOBAL_STYLE.flexRow,
+                GLOBAL_STYLE.justifyBetween,
+                GLOBAL_STYLE.alignCenter,
+                GLOBAL_STYLE.pv5,
+              ]}
+            >
+              <View style={GLOBAL_STYLE.alignCenter}>
+                <Text style={GLOBAL_STYLE.bold}>198</Text>
+                <Text style={{ color: COLOR.grey }}>kcal</Text>
+              </View>
+              <View style={GLOBAL_STYLE.alignCenter}>
+                <Text style={GLOBAL_STYLE.bold}>13.1</Text>
+                <Text style={{ color: COLOR.grey }}>protein</Text>
+              </View>
+              <View style={GLOBAL_STYLE.alignCenter}>
+                <Text style={GLOBAL_STYLE.bold}>13.4</Text>
+                <Text style={{ color: COLOR.grey }}>fat</Text>
+              </View>
+              <View style={GLOBAL_STYLE.alignCenter}>
+                <Text style={GLOBAL_STYLE.bold}>5.8</Text>
+                <Text style={{ color: COLOR.grey }}>carbs</Text>
+              </View>
+            </View>
+            <Text style={[GLOBAL_STYLE.bold, GLOBAL_STYLE.pv10]}>
+              Ingredients
+            </Text>
+            <Text style={{ color: COLOR.grey }}>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Excepturi fugit ipsum aut dolorum incidunt sequi dignissimos
+              dolorem! Asperiores, delectus possimus! Ratione sit maxime
+              voluptatum? Distinctio nihil ducimus tempora harum cum.
+            </Text>
+          </View>
         </View>
-      </View>
+      </ScrollView>
       <View
         style={[
           styles.buttonSection,
@@ -127,7 +130,7 @@ export default function Modal() {
             router.back();
             // update cart of global store.
             dispatch({
-              type: quantity>0 ?Types.update: Types.remove,
+              type: quantity > 0 ? Types.update : Types.remove,
               // @ts-ignore
               payload: { dish, price, image, quantity },
             });
@@ -135,7 +138,7 @@ export default function Modal() {
         />
       </View>
       <StatusBar style="light" />
-    </ScrollView>
+    </View>
   );
 }
 
@@ -154,8 +157,10 @@ const styles = StyleSheet.create({
     color: COLOR.grey,
   },
   buttonSection: {
-    marginTop: -20,
     paddingHorizontal: 15,
+    position: "absolute",
+    bottom: 10,
+    alignSelf: "center",
   },
   numberButtons: {
     backgroundColor: COLOR.grey,

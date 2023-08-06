@@ -5,14 +5,28 @@ import { CartProvider } from "@context/index";
 export default function Layout() {
   return (
     <CartProvider>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="index" />
-        <Stack.Screen name="cart" />
-
+      <Stack>
+        <Stack.Screen
+          name="index"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="cart"
+          options={{
+            headerShown: true,
+            headerTitle: "Cart",
+            headerTintColor: COLOR.secondry,
+            headerStyle: {backgroundColor: COLOR.primary}
+          }}
+        />
+        <Stack.Screen
+          name={"delivery"}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name="modal"
           options={{

@@ -9,6 +9,9 @@ export const GLOBAL_STYLE = StyleSheet.create({
   justifyBetween: {
     justifyContent: "space-between",
   },
+  justifyCenter: {
+    justifyContent: "center",
+  },
   alignCenter: { alignItems: "center" },
   alignStart: { alignItems: "flex-start" },
   bold: { fontWeight: "bold", letterSpacing: 1.2 },

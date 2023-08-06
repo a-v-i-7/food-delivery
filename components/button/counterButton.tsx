@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, StyleProp, ViewStyle } from "react-native";
 import React, { useState } from "react";
 import { GLOBAL_STYLE } from "@utils/globalStyles";
 import { COLOR } from "@utils/index";
-import {default as RButton} from "./button";
+import { default as RButton } from "./button";
 
 const CounterButton: React.FC<{
   counter: number;
@@ -26,14 +26,14 @@ const CounterButton: React.FC<{
         backgroundColor={btnBg ? btnBg : COLOR.grey}
         buttonStyle={styles.numButton}
         onPress={() => onSub()}
-        color={color? color: COLOR.secondry}
-
+        color={color ? color : COLOR.secondry}
       />
       <Text
         style={[
           GLOBAL_STYLE.bold,
           GLOBAL_STYLE.ph5,
           { backgroundColor: btnBg },
+          color ? { color } : { color: COLOR.secondry },
         ]}
       >
         {counter}
@@ -43,7 +43,7 @@ const CounterButton: React.FC<{
         backgroundColor={btnBg ? btnBg : COLOR.grey}
         buttonStyle={styles.numButton}
         onPress={() => onAdd()}
-        color={color? color: COLOR.secondry}
+        color={color ? color : COLOR.secondry}
       />
     </View>
   );

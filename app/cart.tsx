@@ -6,6 +6,7 @@ import { Image } from "expo-image";
 import { imgAsset } from "@assets/assets";
 import { COLOR } from "@utils/index";
 import { CounterButton, RButton } from "@components/button";
+import { router } from "expo-router";
 
 const Cart = () => {
   const { state, dispatch } = useContext(CartContext);
@@ -180,7 +181,7 @@ const Cart = () => {
         </View>
         <RButton
           heading="order"
-          onPress={() => {}}
+          onPress={() => {router.push("/delivery/")}}
           buttonStyle={{ width: "100%" }}
         />
       </View>

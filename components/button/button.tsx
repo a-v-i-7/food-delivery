@@ -11,18 +11,29 @@ import {
 } from "react-native";
 import React from "react";
 import { COLOR } from "@utils/index";
+import { GLOBAL_STYLE } from "@utils/globalStyles";
 
-interface ButtonProps extends TouchableOpacityProps{
+interface ButtonProps extends TouchableOpacityProps {
   heading: string;
   color?: string | null | undefined;
   backgroundColor?: string | null | undefined;
   onPress: () => void;
   buttonStyle?: StyleProp<ViewStyle> | null | undefined;
   headingStyle?: StyleProp<TextStyle> | null | undefined;
+  RBIconLeft?: React.JSX.Element;
+  RBIconRight?: React.JSX.Element;
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
-  const { heading, color, backgroundColor, buttonStyle, headingStyle } = props;
+  const {
+    heading,
+    color,
+    backgroundColor,
+    buttonStyle,
+    headingStyle,
+    RBIconLeft,
+    RBIconRight,
+  } = props;
   return (
     <TouchableOpacity
       {...props}
@@ -33,9 +44,11 @@ const Button: React.FC<ButtonProps> = (props) => {
       ]}
       onPress={() => props.onPress()}
     >
+      {RBIconLeft}
       <Text style={[styles.buttonText, color ? { color } : {}, headingStyle]}>
         {heading}
       </Text>
+      {RBIconRight}
     </TouchableOpacity>
   );
 };
@@ -48,6 +61,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignSelf: "center",
     justifyContent: "center",
+    ...GLOBAL_STYLE.flexRow,
+    alignItems: "center"
   },
   buttonText: {
     color: COLOR.secondry,
@@ -55,6 +70,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textTransform: "capitalize",
     alignSelf: "center",
+    paddingHorizontal:5
   },
 });
 export default Button;
