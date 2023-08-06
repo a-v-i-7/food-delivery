@@ -21,7 +21,7 @@ export default function Modal() {
   }>();
   const { state, dispatch } = useContext(CartContext);
   const quantityInCart = state?.filter((a) => a.dish === dish)[0]?.quantity;
-  const [quantity, setQuantity] = useState(parseInt(quantityInCart || "0"));
+  const [quantity, setQuantity] = useState(quantityInCart || 0);
   const data: { name: string; icon: any; color: string }[] = [
     { name: "Vegan", icon: "leaf", color: "green" },
     { name: "Few Calories", icon: "fire", color: "orange" },
