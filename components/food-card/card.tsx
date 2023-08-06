@@ -1,43 +1,56 @@
-import { View, Text, StyleSheet,  ImageSourcePropType, TouchableNativeFeedback } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
 import { COLOR } from "../../utils";
-import {Image} from 'expo-image';
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Image } from "expo-image";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { imgAsset } from "@assets/assets";
+import { GLOBAL_STYLE } from "@utils/globalStyles";
 
 interface CardPropsType {
   dish: string;
   price: number;
-  img: ImageSourcePropType | string;
+  img: string;
 }
 
 const Card = (props: CardPropsType) => {
-  const {img, dish, price} = props;
-  console.log("image", img);
-  
+  const { img, dish, price } = props;
+
   return (
-    <TouchableOpacity >
-      <View style={styles.cardContainer}>
-      <View style={styles.imageContainer}>
-        <Image
-          source={img}
-          contentFit="cover"
-          contentPosition={"center"}
-          style={{ width: "100%", height: "100%" }}
-          
-        />
-      </View>
+    <TouchableWithoutFeedback style={styles.cardContainer}>
+      <Image
+        //@ts-expect-error
+        source={imgAsset[img]}
+        contentFit="cover"
+        contentPosition={"center"}
+        style={{
+          width: 140,
+          height: 140,
+          borderRadius: 100,
+          alignSelf: "center",
+          shadowColor: "#555",
+          shadowOpacity: 5,
+          shadowOffset: { width: 2.5, height: 2 },
+          overflow: "hidden",
+        }}
+      />
+      {/* <View style={styles.imageContainer}>
+      </View> */}
       <View
         style={{
           alignItems: "center",
           padding: 2,
           paddingHorizontal: 10,
-          paddingBottom: 20,
+          marginVertical: 20,
         }}
       >
         <Text style={styles.title}>{dish}</Text>
-        <Text style={[styles.title, {}]}>{ `${price}rs`}</Text>
+        <Text style={[styles.title, {}]}>{`${price}rs`}</Text>
       </View>
-      </View>
-    </TouchableOpacity>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -48,27 +61,15 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR.secondry,
     margin: 10,
     marginVertical: 10,
-    overflow: "hidden",
+    paddingVertical: 20,
     borderRadius: 8,
-    width: "90%",
+    width: Dimensions.get("window").width / 2 - 40,
+    height: 230,
   },
-  imageContainer: {
-    borderRadius: 100,
-    elevation: 15,
-    width: 140,
-    height: 140,
-    shadowColor: "#555",
-    shadowOpacity: 5,
-    shadowOffset: { width: 2.5, height: 2 },
-    backgroundColor: "purple",
-    alignSelf: "center",
-    overflow: "hidden",
-    marginVertical: 15
-  },
+
   title: {
     fontSize: 16,
     fontWeight: "600",
-    textTransform: "capitalize"
-    
-  }
+    textTransform: "capitalize",
+  },
 });

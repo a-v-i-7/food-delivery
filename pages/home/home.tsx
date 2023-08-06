@@ -8,25 +8,19 @@ import {
   FlatList,
   ScrollView,
 } from "react-native";
+import { useContext } from "react";
 import { COLOR } from "../../utils";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { FoodCard } from "../../components/food-card";
-// @ts-ignore
-import f1image from "@assets/dishes/food1.jpg";
-// @ts-ignore
-import f2image from "@assets/dishes/food2.jpg";
-// @ts-ignore
-import f3image from "@assets/dishes/food3.jpg";
-// @ts-ignore
-import f4image from "@assets/dishes/food4.jpg";
-// @ts-ignore
-import f5image from "@assets/dishes/food5.jpg";
-// @ts-ignore
 import { GLOBAL_STYLE } from "@utils/globalStyles";
 import { Link, router } from "expo-router";
+import { CartContext } from "@context/index";
+import { RButton } from "@components/button";
 
 export default function Home() {
+  const { state } = useContext(CartContext);
+
   return (
     <View>
       <ScrollView style={GLOBAL_STYLE.container}>
@@ -139,61 +133,69 @@ export default function Home() {
             <Text style={styles.subHeading}>Recommended for you</Text>
             <Text style={styles.lightText}>View all</Text>
           </View>
-          <View style={{ width: "100%", backgroundColor: COLOR.lightBg }}>
+          <View>
             <FlatList<{ dish: string; price: number; image: string }>
               data={[
                 {
                   dish: "Chicken kebab",
                   price: 200,
-                  image: f1image,
+                  image: "f1image",
                 },
                 {
-                  dish: "Chicken Burger meal",
+                  dish: "Burger meal",
                   price: 400,
-                  image: f2image,
+                  image: "f2image",
                 },
                 {
                   dish: "Lamb Burger",
                   price: 600,
-                  image: f3image,
+                  image: "f3image",
                 },
                 {
                   dish: "Noodles",
                   price: 300,
-                  image: f4image,
+                  image: "f4image",
                 },
                 {
                   dish: "Thali",
                   price: 250,
-                  image: f5image,
+                  image: "f5image",
                 },
                 {
                   dish: "Chiken Tikka",
                   price: 200,
-                  image: f1image,
+                  image: "f1image",
                 },
               ]}
               keyExtractor={(item, index) => `${item.dish}-${index}`}
               renderItem={({ item }) => (
-                <Link href={{pathname: "/modal", params: {...item}}}>
+                <Link href={{ pathname: "/modal", params: { ...item } }}>
                   <FoodCard
-                  img={item.image}
-                  price={item.price}
-                  dish={item.dish}
-                />
+                    img={item.image}
+                    price={item.price}
+                    dish={item.dish}
+                  />
                 </Link>
               )}
               scrollEnabled={false}
               numColumns={2}
-              // horizontal
             />
           </View>
         </View>
         <View style={{ height: 50 }} />
       </ScrollView>
-      <TouchableOpacity style={styles.checkoutButton}>
-        <Text style={styles.buttonText}>Check out 2 products</Text>
-      </TouchableOpacity>
+      <RButton
+        heading={
+          state.length > 0
+            ? `Check out ${state
+                .map((a) => a.price * a.quantity)
+                .reduce((totalPrice, curr) => totalPrice + curr, 0)} rs`
+            : "Please Add Products"
+        }
+        buttonStyle={styles.checkoutButton}
+        onPress={() => router.push("/cart/")}
+        disabled={state.length == 0}
+      />
     </View>
   );
 }
